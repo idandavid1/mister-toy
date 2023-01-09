@@ -6,7 +6,7 @@ header {
 .header-content {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    /* padding: 20px 0; */
 }
 
 nav a {
@@ -21,4 +21,8 @@ nav a.active {
     color: darkblue;
     font-weight: bold;
     text-decoration: overline;
+}
+
+header img{
+    height: 90px;
 }

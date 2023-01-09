@@ -21,3 +21,18 @@ img {
     width: 100%;
     object-fit: cover;
 }
+
+button {
+    color: #ffffff;
+    background-color: #2287c9;
+    font-size: 18px;
+    border-radius: 10px; 
+    padding: 6px 10px;
+    cursor: pointer;
+    border: 0;
+}
+
+button:hover {
+    background-color: #09334f;
+}
+

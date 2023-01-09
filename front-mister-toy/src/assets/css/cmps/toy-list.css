@@ -1,0 +1,29 @@
+.toy-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.toy-list li {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    padding: 20px;
+}
+
+.toy-list .toy-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.toy-list .btn-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.toy-list li img{
+    height: 200px;
+}
