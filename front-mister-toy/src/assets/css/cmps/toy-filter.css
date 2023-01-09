@@ -1,0 +1,25 @@
+
+.toy-filter {
+    background-color: whitesmoke;
+    padding: 20px;
+    margin: 10px;
+}
+
+.toy-filter form{
+    display: flex;
+    gap: 20px;
+}
+
+.toy-filter input{
+    height: 35px;
+    width: 150px;
+}
+
+.toy-filter select{
+    height: 40px;
+    width: 151px;
+}
+
+.toy-filter button{
+    display: none;
+}

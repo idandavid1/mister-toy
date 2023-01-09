@@ -16,3 +16,6 @@
 @import './cmps/user-msg.css';
 @import './cmps/loading.css';
 @import './cmps/toy-list.css';
+@import './cmps/toy-edit.css';
+@import './cmps/toy-details.css';
+@import './cmps/toy-filter.css';

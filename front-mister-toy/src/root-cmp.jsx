@@ -6,6 +6,7 @@ import { store } from "./store/store";
 import { Provider } from 'react-redux';
 import { AppHeader } from './cmps/app-header';
 import { ToyEdit } from './pages/edit-toy';
+import { ToyDetails } from './pages/toy-details';
 
 export function App() {
 
@@ -17,6 +18,7 @@ export function App() {
                     <main className='layout'>
                         <Routes>
                             <Route element={<ToyApp />} path="/" />
+                            <Route element={<ToyDetails />} path="/:toyId" />
                             <Route element={<ToyEdit />} path="/edit/:toyId" />
                             <Route element={<ToyEdit />} path="/edit" />
                         </Routes>

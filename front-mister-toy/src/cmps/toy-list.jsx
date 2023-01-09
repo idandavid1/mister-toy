@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { ToyPreview } from "./toy-preview.jsx"
 
 
@@ -9,7 +10,8 @@ export function ToyList({ toys, onRemove }) {
                     <ToyPreview toy={toy} />
                     <div className="btn-container">
                         <button onClick={() => onRemove(toy._id)}>delete</button>
-                        <button>details</button>
+                        <Link to={`/${toy._id}`}><button>details</button></Link>
+                        <Link to={`/edit/${toy._id}`}><button>update</button></Link>
                     </div>
                 </li>)}
         </ul>

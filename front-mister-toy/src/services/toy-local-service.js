@@ -36,7 +36,8 @@ function getEmptyToy() {
         price: 0,
         labels: [],
         createdAt: 0,
-        inStock: true
+        inStock: true,
+        imgUrl: ''
     }
 }
 
@@ -44,7 +45,8 @@ function getEmptyFilter() {
     return {
         name: '',
         inStock: '',
-        labels: []
+        labels: [],
+        sortBy: ''
     }
 }
 
@@ -52,19 +54,20 @@ function _createToys() {
     let toys = utilService.loadFromStorage(STORAGE_KEY)
     if (!toys) {
         toys = []
-        toys.push(_createToy('toy car', 50, ['car', 'on a sigh'], 'toy1.webp'))
-        toys.push(_createToy('toy drone', 250, ['drone', 'fun'], 'toy3.jpg'))
+        toys.push(_createToy('toy car', 50, ['car', 'on a sigh'], 'https://i5.walmartimages.com/asr/5cf6581e-8ac4-49b0-a3f1-63fa59ecd813.318f50bf4e8013086ffc873d002a5242.jpeg'))
+        toys.push(_createToy('toy drone', 250, ['drone', 'fun'], 'https://m.media-amazon.com/images/I/71b1xQSUXeL.jpg'))
         utilService.saveToStorage(STORAGE_KEY, toys)
     }
 }
 
-function _createToy(name, price, labels, img) {
+function _createToy(name, price, labels, imgUrl) {
     return { 
         _id: utilService.makeId(),
         name,
         price,
         labels,
         createdAt: Date.now(),
-        img
+        imgUrl,
+        inStock: true
     }
 }
