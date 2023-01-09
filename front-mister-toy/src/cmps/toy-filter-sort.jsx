@@ -10,8 +10,9 @@ export function ToyFilter() {
 
     function handleChange({ target }) {
         let { value, name: field } = target
-        setFilter({ ...filter, [field]: value})
-        debounceLoadToys.current(filter)
+        const changeFilter = { ...filter, [field]: value}
+        debounceLoadToys.current(changeFilter)
+        setFilter(changeFilter)
     }
 
     function onSubmitFilter(ev) {
@@ -21,9 +22,10 @@ export function ToyFilter() {
     }
 
     function onChangeSelect({target}) {
-        let { value } = target
-        setFilter({ ...filter, isDown: value})
-        loadToys(filter)
+        let { value, name: field } = target
+        const changeFilter = { ...filter, [field]: value}
+        loadToys(changeFilter)
+        setFilter(changeFilter)
     }
 
     return <section className="toy-filter">
@@ -38,10 +40,10 @@ export function ToyFilter() {
                 id="labels"
                 name="labels"
                 placeholder="By labels"
-                value={filter.labels.join(', ')}
+                value={filter.labels}
                 onChange={handleChange} />
             <select name="inStock" id="inStock" onChange={onChangeSelect}>
-                <option value="">All</option>
+                <option value="All">All</option>
                 <option value="true">In stock</option>
                 <option value="false">Out of stock</option>
             </select>

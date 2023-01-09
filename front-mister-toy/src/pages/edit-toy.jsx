@@ -1,5 +1,5 @@
 
-import { toyService } from "../services/toy-local-service.js"
+import { toyService } from "../services/toy.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
@@ -34,6 +34,7 @@ export function ToyEdit() {
 
     function onSaveToy(ev) {
         ev.preventDefault()
+        if(!toyToEdit._id) toyToEdit.createdAt = Date.now()
         saveToy(toyToEdit)
             .then(() => {
                 showSuccessMsg('toy saved!')

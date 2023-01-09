@@ -1,9 +1,9 @@
-import { toyService } from "../services/toy-local-service.js"
+import { toyService } from "../services/toy.service.js"
 import { store } from "./store.js"
 import { SET_TOYS, REMOVE_TOY, UPDATE_TOY, ADD_TOY, SET_FILTER } from "./toy.reducer.js"
 
-export function loadToys() {
-    return toyService.query()
+export function loadToys(filter) {
+    return toyService.query(filter)
         .then((toys) => {
             console.log('toys:', toys)
             store.dispatch({ type: SET_TOYS, toys })

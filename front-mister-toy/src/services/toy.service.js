@@ -12,6 +12,7 @@ export const toyService = {
 }
 
 function query(filter) {
+    console.log('filter:', filter)
     const queryParams = `?name=${filter.name}&inStock=${filter.inStock}&labels=${filter.labels}&sortBy=${filter.sortBy}`
     return httpService.get(BASE_URL + queryParams)
 }
@@ -44,7 +45,7 @@ function getEmptyFilter() {
     return {
         name: '',
         inStock: '',
-        labels: [],
+        labels: '',
         sortBy: ''
     }
 }
