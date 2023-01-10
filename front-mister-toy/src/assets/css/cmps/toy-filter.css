@@ -10,10 +10,10 @@
     gap: 20px;
 }
 
-.toy-filter input{
+/* .toy-filter input{
     height: 35px;
     width: 150px;
-}
+} */
 
 .toy-filter select{
     height: 40px;
@@ -22,4 +22,9 @@
 
 .toy-filter button{
     display: none;
+}
+
+.multiSelect {
+    height: 35px;
+    width: 150px;
 }

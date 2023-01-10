@@ -8,7 +8,9 @@ export const toyService = {
     save,
     remove,
     getEmptyToy,
-    getEmptyFilter
+    getEmptyFilter,
+    getLabels
+
 }
 
 function query(filter) {
@@ -39,6 +41,10 @@ function getEmptyToy() {
         inStock: true,
         imgUrl: ''
     }
+}
+
+function getLabels() {
+    return httpService.get('labels/')
 }
 
 function getEmptyFilter() {

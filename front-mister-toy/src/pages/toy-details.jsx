@@ -18,7 +18,7 @@ export function ToyDetails() {
         toyService.getById(toyId).then(setToy)
         .catch((err) => {
             console.log('can not load toy', err)
-            navigate('/')
+            navigate('/toy')
         })
     }
     
@@ -31,7 +31,7 @@ export function ToyDetails() {
                 <div>price: {toy.price}</div>
                 <div>labels: {toy.labels.join(', ')}</div>
                 <div>create: {toy.createAt}</div>
-                <div>inStock: {toy.createAt ? 'yes' : 'no'}</div>
+                <div>inStock: {toy.inStock ? 'yes' : 'no'}</div>
         </div>
     </section>
     )

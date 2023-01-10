@@ -10,8 +10,8 @@ export function ToyList({ toys, onRemove }) {
                     <ToyPreview toy={toy} />
                     <div className="btn-container">
                         <button onClick={() => onRemove(toy._id)}>delete</button>
-                        <Link to={`/${toy._id}`}><button>details</button></Link>
-                        <Link to={`/edit/${toy._id}`}><button>update</button></Link>
+                        <Link to={`/toy/${toy._id}`}><button>details</button></Link>
+                        <Link to={`/toy/edit/${toy._id}`}><button>update</button></Link>
                     </div>
                 </li>)}
         </ul>

@@ -38,12 +38,12 @@ export function ToyEdit() {
         saveToy(toyToEdit)
             .then(() => {
                 showSuccessMsg('toy saved!')
-                navigate('/')
+                navigate('/toy')
             })
             .catch((err) => {
                 console.log('err', err)
                 showErrorMsg('cant save toy')
-                navigate('/')
+                navigate('/toy')
             })
     }
 

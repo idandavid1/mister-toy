@@ -2,34 +2,54 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const toyService = require('./services/toy.service.js')
 const cors = require('cors')
+const path = require('path')
 const app = express()
-
-// App configuration
-app.use(express.static('public'))
-
-const corsOptions = {
-    origin: ['http://127.0.0.1:8080', 'http://localhost:8080', 'http://127.0.0.1:3000', 'http://localhost:3000'],
-    credentials: true
-}
-app.use(cors(corsOptions))
-
 
 app.use(cookieParser())
 app.use(express.json())
 
 
+// App configuration
+// app.use(express.static('public'))
+
+// const corsOptions = {
+//     origin: ['http://127.0.0.1:8080', 'http://localhost:8080', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+//     credentials: true
+// }
+// app.use(cors(corsOptions))
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve(__dirname, 'public')))
+} else {
+    const corsOptions = {
+        origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+        credentials: true
+    }
+    app.use(cors(corsOptions))
+}
+
+app.get('/api/labels', (req, res) => {
+    toyService.queryLabels()
+        .then((labels) => {
+            res.send(labels)
+        })
+        .catch(err => {
+            console.log('Error:', err)
+            res.status(404).send('Cannot get labels')
+        })
+})
+
 // Real routing express
 // List
 app.get('/api/toy', (req, res) => {
     const filterBy = req.query
-    console.log('1111filterBy:', filterBy)
     toyService.query(filterBy)
         .then((toys) => {
             res.send(toys)
         })
         .catch(err => {
             console.log('Error:', err)
-            res.status(400).send('Cannot get toys')
+            res.status(404).send('Cannot get toys')
         })
 })
 
@@ -85,7 +105,17 @@ app.delete('/api/toy/:toyId', (req, res) => {
 })
 
 // Listen will always be the last line in our server!
-app.listen(3030, () => console.log('Server listening on port 3030!'))
+// app.listen(3030, () => console.log('Server listening on port 3030!'))
+
+app.get('/**', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
+
+const port = process.env.PORT || 3030
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}!`)
+})
 
 
 

@@ -1,12 +1,14 @@
 const fs = require('fs');
 var toys = require('../data/toy.json')
+var labels = require('../data/labels.json')
 
 
 module.exports = {
     query,
     get,
     remove,
-    save
+    save,
+    queryLabels
 }
 
 function query(filterBy) {
@@ -34,6 +36,7 @@ function query(filterBy) {
 function get(toyId) {
     const toy = toys.find(toy => toy._id === toyId)
     if (!toy) return Promise.reject('toy not found')
+    toy.msgs = []
     return Promise.resolve(toy)
 }
 
@@ -56,6 +59,11 @@ function save(saveToy) {
         toys.push(saveToy)
     }
     return _writeToysToFile().then()
+}
+
+function queryLabels() {
+    console.log('labels:', labels)
+    return Promise.resolve(labels)
 }
 
 function _makeId(length = 5) {
