@@ -5,11 +5,14 @@
     "price": 50,
     "labels": [
       "car",
-      "on a sigh"
+      "on a sigh",
+      "On wheels",
+      "Box game"
     ],
     "createdAt": 11111111111,
     "imgUrl": "https://i5.walmartimages.com/asr/5cf6581e-8ac4-49b0-a3f1-63fa59ecd813.318f50bf4e8013086ffc873d002a5242.jpeg",
-    "inStock": true
+    "inStock": false,
+    "msgs": []
   },
   {
     "_id": "3VXjpF",
@@ -18,11 +21,16 @@
     "labels": [
       "drone",
       "on a sigh",
-      "fly"
+      "fly",
+      "Box game",
+      "Art",
+      "Baby",
+      "Doll"
     ],
     "createdAt": 111111111112,
     "imgUrl": "https://i5.walmartimages.com/asr/5cf6581e-8ac4-49b0-a3f1-63fa59ecd813.318f50bf4e8013086ffc873d002a5242.jpeg",
-    "inStock": true
+    "inStock": false,
+    "msgs": []
   },
   {
     "name": "ehuded",
@@ -46,7 +54,8 @@
     "createdAt": 0,
     "inStock": true,
     "imgUrl": "https://c8.alamy.com/comp/HTPJD8/little-mclaren-p1tm-electric-car-for-kids-battery-powered-toy-supercar-HTPJD8.jpg",
-    "_id": "7lBMX"
+    "_id": "7lBMX",
+    "msgs": []
   },
   {
     "name": "eff",

@@ -30,7 +30,7 @@ export function ToyApp() {
     if(!toys) return <Loading />
     return <section className="toy-app">
         <ToyFilter />
-        <Link to={`/edit`}><button>add toy</button></Link>
+        <Link to={`/toy/edit/`}><button>add toy</button></Link>
         <ToyList onRemove={onRemove} toys={toys}/>
     </section>
 }

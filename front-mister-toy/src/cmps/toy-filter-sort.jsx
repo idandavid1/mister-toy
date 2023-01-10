@@ -67,12 +67,6 @@ export function ToyFilter() {
                 onChange={(selected) => onMultiSelected(selected)}
                 labelledBy="Select"
             />
-            {/* <input type="text"
-                id="labels"
-                name="labels"
-                placeholder="By labels"
-                value={filter.labels}
-                onChange={handleChange} /> */}
             <select name="inStock" id="inStock" onChange={onChangeSelect}>
                 <option value="All">All</option>
                 <option value="true">In stock</option>

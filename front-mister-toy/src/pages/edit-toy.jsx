@@ -4,18 +4,29 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { saveToy } from "../store/toy.action.js"
+import { MultiSelect } from "react-multi-select-component"
 
 export function ToyEdit() {
     const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
+    const [options, setOptions] = useState([])
+    const [selected, setSelected] = useState([])
     const navigate = useNavigate()
     const { toyId } = useParams()
 
     useEffect(() => {
+        toyService.getLabels()
+        .then((labels) => {
+            setOptions(labels.map(label => ({label, value: label })))
+        })
+        .catch(err => {
+            console.log('Error:', err)
+        })
         if(toyId) {
             toyService.getById(toyId)
             .then((toy) => {
                 setToyToEdit(toy)
                 showSuccessMsg('load toy')
+                setSelected(toy.labels.map(label => ({label, value: label })))
             })
             .catch((err) => {
                 console.log('err:', err)
@@ -26,9 +37,9 @@ export function ToyEdit() {
     }, [])
 
     function handleChange({ target }) {
-        let { value, type, name: field } = target
+        let { value, type, name: field, checked } = target
         value = type === 'number' ? +value : value
-        value = field === 'labels' ? value.split(', ')  : value
+        value = field === 'inStock' ? checked : value
         setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
     }
 
@@ -47,10 +58,19 @@ export function ToyEdit() {
             })
     }
 
+    function onMultiSelected(selected){
+        setSelected(selected)
+        const labels = selected.map(select => select.label)
+        setToyToEdit((prevToy) => ({ ...prevToy, labels }))
+    }
+
+    console.log('options:', options)
+    console.log('selected:', selected)
+    if(!options) return <div>loading..</div>
     return (
         <section className="toy-edit">
         <form onSubmit={onSaveToy}>
-            <div>
+            <div className="edit">
                 <label htmlFor="name">name : </label>
                 <input type="text"
                     name="name"
@@ -60,7 +80,7 @@ export function ToyEdit() {
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className="edit">
                 <label htmlFor="price">price: </label>
                 <input type="number"
                     name="price"
@@ -70,7 +90,7 @@ export function ToyEdit() {
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className="edit">
                 <label htmlFor="imgUrl">imgUrl: </label>
                 <input type="url"
                     name="imgUrl"
@@ -80,13 +100,24 @@ export function ToyEdit() {
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <label htmlFor="labels">labels: </label>
-                <input type="text"
-                    name="labels"
-                    id="labels"
-                    placeholder="Enter labels"
-                    value={toyToEdit.labels.join(', ')}
+            <div className="labels">
+            <label htmlFor="labels">labels: </label>
+            <MultiSelect
+                name="labels"
+                id="labels"
+                options={options}
+                value={selected}
+                onChange={(selected) => onMultiSelected(selected)}
+                labelledBy="Select"
+            />
+            </div>
+            <div className="edit">
+                <label htmlFor="inStock">inStock: </label>
+                <input type="checkBox"
+                    name="inStock"
+                    id="inStock"
+                    value={toyToEdit.inStock}
+                    checked={toyToEdit.inStock}
                     onChange={handleChange}
                 />
             </div>
