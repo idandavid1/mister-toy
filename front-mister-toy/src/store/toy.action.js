@@ -2,7 +2,7 @@ import { toyService } from "../services/toy.service.js"
 import { store } from "./store.js"
 import { SET_TOYS, REMOVE_TOY, UPDATE_TOY, ADD_TOY, SET_FILTER } from "./toy.reducer.js"
 
-export function loadToys(filter) {
+export function loadToys(filter = toyService.getEmptyFilter()) {
     return toyService.query(filter)
         .then((toys) => {
             console.log('toys:', toys)

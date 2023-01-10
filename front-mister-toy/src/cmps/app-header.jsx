@@ -11,6 +11,7 @@ export function AppHeader() {
                 <NavLink to="/">Home</NavLink> |
                 <NavLink to="/toy">toys</NavLink> |
                 <NavLink to="/about">About</NavLink> |
+                <NavLink to="/dashboard">Dashboard</NavLink> 
             </nav>
         </div>
     </header>
