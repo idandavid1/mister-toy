@@ -1,38 +1,42 @@
-
-import React from "react";
+import React, { useState } from "react";
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 export function AboutPage(){
-    const places = [{txt: 'Tel Aviv', lat: 59.955413,lng: 30.337844},
-     {txt: 'Rehovot', lat: 50, lng: 31},
-     {txt: 'bbbbb', lat: 57, lng: 31}]
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627
-    },
-    zoom: 11
-  };
+  const [centerPos, setCenterPos] = useState({lat: 32.109333,lng: 34.855499})
+  const places = [{txt: 'Tel Aviv', lat: 32.109333,lng: 34.855499},
+                  {txt: 'Rehovot', lat: 31.894756, lng: 34.809322},
+                  {txt: 'Haifa', lat: 32.794044, lng: 34.989571}]
+  const renderMarkers = (map, maps) => {
+    let markers = places.map(place => {
+      let marker = new maps.Marker({
+      position: { lat: place.lat, lng: place.lng },
+      map,
+      title: place.txt
+      });
+    })
+    
+    return markers;
+  }
 
   return (
-    // Important! Always set the container height explicitly
-    <div style={{ height: '90vh', width: '90%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCmL2Wr3EopBGHsyPwuFyoJGahO0Dyq5sA"}}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        {/* {places.map(place => {
-        return <AnyReactComponent
-          lat={place.lat}
-          lng={place.lng}
-          text={place.txt}
-        />
-        })} */}
-        
-      </GoogleMapReact>
-    </div>
-  );
+    <section className="about-page">
+      <div style={{ height: '70vh' }} className="map-container">
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: "AIzaSyCmL2Wr3EopBGHsyPwuFyoJGahO0Dyq5sA"}}
+          center={centerPos}
+          defaultZoom={11}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({map, maps}) => renderMarkers(map, maps)}
+        >
+        </GoogleMapReact>
+      </div>
+      <div className="btn-container">
+      {
+        places.map((place, idx) => {
+          return <button key={idx} onClick={() => setCenterPos({lat: place.lat, lng: place.lng})}>{place.txt}</button>
+        })
+      }
+      </div>
+    </section>
+  )
 }
