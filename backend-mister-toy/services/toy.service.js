@@ -31,7 +31,6 @@ function query(filterBy) {
     return Promise.resolve(filteredToys)
 }
 
-
 function get(toyId) {
     const toy = toys.find(toy => toy._id === toyId)
     if (!toy) return Promise.reject('toy not found')
@@ -56,7 +55,7 @@ function save(saveToy) {
         saveToy._id = _makeId()
         toys.push(saveToy)
     }
-    return _writeToysToFile().then(() => toy)
+    return _writeToysToFile().then()
 }
 
 function _makeId(length = 5) {
