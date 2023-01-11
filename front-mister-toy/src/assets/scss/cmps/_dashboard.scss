@@ -1,0 +1,14 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    height: 125vh;
+
+    div {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+    }
+    
+}

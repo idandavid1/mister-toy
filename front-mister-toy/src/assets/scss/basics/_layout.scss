@@ -1,0 +1,23 @@
+.layout {
+    max-width: $xs;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 768px) {
+    .layout {
+      max-width: $s;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .layout {
+      max-width: $m;
+    }
+  }
+  
+  @media (min-width: 1281px) {
+    .layout {
+      max-width: $l;
+    }
+  }

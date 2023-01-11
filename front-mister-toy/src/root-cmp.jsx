@@ -1,4 +1,4 @@
-import './assets/css/main.css'
+import './assets/scss/main.scss'
 
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ToyApp } from "./pages/toy-app";
@@ -10,6 +10,7 @@ import { ToyDetails } from './pages/toy-details';
 import { HomePage } from './pages/home-page';
 import { AboutPage } from './pages/about-page';
 import { Dashboard } from './pages/dashboard';
+import { AppFooter } from './cmps/app-footer';
 
 export function App() {
 
@@ -29,7 +30,7 @@ export function App() {
                             <Route element={<ToyEdit />} path="/toy/edit" />
                         </Routes>
                     </main>
-                    {/* <AppFooter /> */}
+                    <AppFooter />
                 </section>
             </Router>
          </Provider>

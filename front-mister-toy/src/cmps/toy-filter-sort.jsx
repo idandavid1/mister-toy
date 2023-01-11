@@ -54,19 +54,22 @@ export function ToyFilter() {
     if(!options) return <Loading />
     return <section className="toy-filter">
         <form onSubmit={onSubmitFilter}>
-            <input type="text"
-                id="name"
-                name="name"
-                placeholder="By name"
-                value={filter.name}
-                onChange={handleChange} />
-                <MultiSelect
-                className="multiSelect"
-                options={options}
-                value={selected}
-                onChange={(selected) => onMultiSelected(selected)}
-                labelledBy="Select"
-            />
+            <div className="aaa">
+                <input type="text"
+                    id="name"
+                    name="name"
+                    placeholder="By name"
+                    value={filter.name}
+                    onChange={handleChange} />
+                    <MultiSelect
+                    className="multiSelect"
+                    options={options}
+                    value={selected}
+                    onChange={(selected) => onMultiSelected(selected)}
+                    labelledBy="Select"
+                />
+            </div>
+            <div className="aaa">
             <select name="inStock" id="inStock" onChange={onChangeSelect}>
                 <option value="All">All</option>
                 <option value="true">In stock</option>
@@ -77,6 +80,8 @@ export function ToyFilter() {
                 <option value="createAt">createAt</option>
                 <option value="price">price</option>
             </select>
+            </div>
+            
             <button>Filter toys</button>
         </form>
     </section>

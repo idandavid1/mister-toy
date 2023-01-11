@@ -1,0 +1,43 @@
+.toy-filter {
+    background-color: $clr4;
+    padding: 20px;
+    margin: 10px 0px;
+
+    #name {
+        height: 38px;
+        width: 150px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .aaa {
+            display: flex;
+            gap: 20px;
+        }
+    }
+
+    select{
+        height: 40px;
+        width: 151px;
+    }
+
+    button{
+        display: none;
+    }
+
+    .multiSelect {
+        height: 35px;
+        width: 150px;
+    } 
+}
+
+@media (min-width: $s) {
+    .toy-filter {
+        form {
+            flex-direction: row;
+        }
+    }   
+}

@@ -20,7 +20,7 @@ export function AboutPage(){
 
   return (
     <section className="about-page">
-      <div style={{ height: '70vh' }} className="map-container">
+      <div style={{ height: '65vh' }} className="map-container">
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyCmL2Wr3EopBGHsyPwuFyoJGahO0Dyq5sA"}}
           center={centerPos}

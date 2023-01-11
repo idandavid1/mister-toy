@@ -89,8 +89,12 @@ function getPriceLabels() {
 
   return (
         <section className='dashboard'>
-              <Doughnut data={createInStockData()} />
-              <Doughnut data={createPriceData()} />
+          <div>
+            <Doughnut  height='35vh' data={createInStockData()} />
+          </div>
+          <div>
+            <Doughnut height='35vh' data={createPriceData()} />
+          </div>
       </section>
   )
   

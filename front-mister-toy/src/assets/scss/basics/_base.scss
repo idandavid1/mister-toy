@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
@@ -9,6 +13,10 @@ h4,
 h5,
 h6 {
     margin: 0;
+}
+
+main {
+    min-height: 78vh;
 }
 
 a {
@@ -23,16 +31,15 @@ img {
 }
 
 button {
-    color: #ffffff;
-    background-color: #2287c9;
-    font-size: 18px;
+    color: $clr3;
+    background-color: $clr1;
+    font-size: rem(18px);
     border-radius: 10px; 
     padding: 6px 10px;
     cursor: pointer;
     border: 0;
-}
 
-button:hover {
-    background-color: #09334f;
+    &:hover {
+        background-color: $clr2;
+    }
 }
-

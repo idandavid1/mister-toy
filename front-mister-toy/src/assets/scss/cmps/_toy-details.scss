@@ -1,0 +1,23 @@
+.toy-details {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .details-container{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & button{
+            max-width: 100px;
+        }
+    }
+}
+
+@media (min-width: 450px) {
+    .details-container {
+        width: 400px;
+    }
+  }
