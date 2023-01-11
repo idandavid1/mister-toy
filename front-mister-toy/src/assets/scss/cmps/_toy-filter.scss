@@ -32,12 +32,10 @@
         height: 35px;
         width: 150px;
     } 
-}
 
-@media (min-width: $s) {
-    .toy-filter {
-        form {
-            flex-direction: row;
+    @include s-layout {
+            form {
+                flex-direction: row;
+            }
         }
-    }   
 }

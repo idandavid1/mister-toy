@@ -1,0 +1,29 @@
+@mixin xs-layout {
+  @media (min-width: $xs) {
+    @content;
+  }
+}
+
+@mixin s-layout {
+  @media (min-width: $s) {
+    @content;
+  }
+}
+
+@mixin m-layout {
+  @media (min-width: $m) {
+    @content;
+  }
+}
+
+@mixin l-layout {
+  @media (min-width: $l) {
+    @content;
+  }
+}
+
+@mixin max-m-layout {
+  @media (max-width: m) {
+    @content;
+  }
+}

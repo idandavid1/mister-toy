@@ -8,7 +8,8 @@ export const utilService = {
     getMonthName,
     loadFromStorage,
     saveToStorage,
-    debounce
+    debounce,
+    getPrice
 }
 
 function makeId(length = 6) {
@@ -51,11 +52,14 @@ function getRandomColor() {
     return color
 }
 
+function getPrice(amount, language = 'en-US', currency = 'USD') {
+    return amount.toLocaleString(language , { style: 'currency', currency })
+}
+
 function getDayName(date, locale) {
     date = new Date(date)
     return date.toLocaleDateString(locale, { weekday: 'long' })
 }
-
 
 function getMonthName(date) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -63,6 +67,7 @@ function getMonthName(date) {
     ]
     return monthNames[date.getMonth()]
 }
+
 
 function saveToStorage(key, val) {
     localStorage.setItem(key, JSON.stringify(val))

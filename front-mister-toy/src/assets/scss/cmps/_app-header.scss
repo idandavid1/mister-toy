@@ -1,7 +1,6 @@
 
 .app-header {
     background: lightcyan;
-    border-bottom: 2px solid $clr3;
     height: 11vh;
 
     img {
@@ -12,6 +11,24 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    nav {
+        position: fixed;
+        top: 11vh;
+        left: 0;
+        transition: transform .6s;
+        z-index: 1;
+        width: 100vw;
+        background-color: lightcyan;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateX(100%);
+    }
+
+    &.menu-open nav {
+        transform: translateX(0);
     }
 
     nav a {
@@ -26,5 +43,23 @@
         color: darkblue;
         font-weight: bold;
         text-decoration: overline;
+    }
+
+    @include m-layout {
+        .btn-container {
+            display: none;
+        }
+
+        nav {
+            position: static;
+            top: 0;
+            z-index: 0;
+            flex-direction: row-reverse;
+            transform: translateX(0);
+        }
+
+        .header-content {
+            flex-direction: row;
+        }
     }
 }

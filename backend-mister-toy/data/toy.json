@@ -68,6 +68,7 @@
     "createdAt": 1673302700876,
     "inStock": true,
     "imgUrl": "https://m.media-amazon.com/images/I/71b1xQSUXeL.jpg",
-    "_id": "uYdzl"
+    "_id": "uYdzl",
+    "msgs": []
   }
 ]
