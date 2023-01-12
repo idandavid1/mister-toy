@@ -9,8 +9,8 @@ export const toyService = {
     remove,
     getEmptyToy,
     getEmptyFilter,
-    getLabels
-
+    getLabels,
+    addMsg
 }
 
 function query(filter) {
@@ -32,6 +32,10 @@ function save(toy) {
     return httpService.post(BASE_URL, toy)
 }
 
+function addMsg(msg, toyId) {
+    return httpService.post(BASE_URL + `${toyId}/${msg}`)
+}
+
 function getEmptyToy() {
     return {
         name: '',
@@ -39,12 +43,13 @@ function getEmptyToy() {
         labels: [],
         createdAt: 0,
         inStock: true,
-        imgUrl: ''
+        imgUrl: '',
+        msgs: []
     }
 }
 
 function getLabels() {
-    return httpService.get('labels/')
+    return httpService.get(`${BASE_URL}labels/`)
 }
 
 function getEmptyFilter() {

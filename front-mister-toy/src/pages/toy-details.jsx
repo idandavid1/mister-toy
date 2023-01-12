@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { Loading } from "../cmps/loading"
@@ -8,7 +9,9 @@ import { utilService } from "../services/util.service"
 
 export function ToyDetails() {
     const [toy, setToy] = useState(null)
+    const [msg, setMsg] = useState({msg: ''})
     const { toyId } = useParams()
+    const user = useSelector((storeState) => storeState.userModule.user)
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -22,6 +25,19 @@ export function ToyDetails() {
             navigate('/toy')
         })
     }
+
+    function handleChange({ target }) {
+        let { value } = target
+        setMsg((prevMsg) => ({ ...prevMsg, msg: value }))
+    }
+
+    function onSubmit(ev) {
+        ev.preventDefault()
+        toyService.addMsg(msg.msg, toyId)
+            .catch((err) => {
+                console.log('err', err)
+            })
+    }
     
     if(!toy) return <Loading />
     return (
@@ -33,7 +49,18 @@ export function ToyDetails() {
                 <div>labels: {toy.labels.join(', ')}</div>
                 <div>create: {`  ${new Date(toy.createdAt).getDate()}  ${utilService.getMonthName(new Date(toy.createdAt))}`}</div>
                 <div>inStock: {toy.inStock ? 'yes' : 'no'}</div>
-        </div>
+                {user && 
+                <form onSubmit={onSubmit}>
+                    <input type="text"
+                    name="txt"
+                    placeholder="Enter msg"
+                    value={msg.msg}
+                    onChange={handleChange}
+                />
+                <button>Save</button>
+                </form>}
+                
+            </div>
     </section>
     )
 }

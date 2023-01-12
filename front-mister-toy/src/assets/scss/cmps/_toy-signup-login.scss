@@ -1,0 +1,51 @@
+
+.login-todo {
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(213, 207, 207);
+    padding: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .login-signUp-form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .login-signUp-form input{
+        width: 250px;
+        height: 35px;
+        margin-top: 10px;
+    }
+
+    .close {
+        width: 20px;
+        background-color:  rgb(213, 207, 207);
+        border: 0;
+        cursor: pointer;
+        font-size: large;
+    }
+
+    .login-btn {
+        background-color: rgb(92, 92, 226);
+        height: 35px;
+        cursor: pointer;
+    }
+
+    a {
+        text-align: center;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .btn-close-container {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}
