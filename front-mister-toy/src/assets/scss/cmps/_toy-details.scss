@@ -14,10 +14,31 @@
             max-width: 100px;
         }
     }
+
+    button {
+        display: none;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    .toy-reviews {
+        display: flex;
+        width: 100%;
+        gap: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgb(6, 5, 5, 0.1);
+
+        div {
+            width: 100px;
+        }
+    }
 }
 
 @media (min-width: 450px) {
     .details-container {
         width: 400px;
     }
-  }
+}

@@ -4,11 +4,26 @@ var labels = require('../../data/labels.json')
 
 async function query(filterBy) {
     try {
-        const criteria = {
-            name: { $regex: filterBy.name, $options: 'i' }
+        const criteria = {}
+        if(filterBy.name){
+            criteria.name = { $regex: filterBy.name, $options: 'i' }
+        }
+        if (filterBy.inStock !== 'All' && filterBy.inStock) {
+            const inStock = filterBy.inStock === 'true' ? true : false
+            console.log('filterBy.inStock:', filterBy.inStock)
+            criteria.inStock = inStock
+        }
+        if(filterBy.labels){
+            const labels = filterBy.labels.split(', ')
+            criteria.labels = labels
         }
         const collection = await dbService.getCollection('toy')
-        var toys = await collection.find(criteria).toArray()
+        const toys = await collection.find(criteria).toArray()
+        if(filterBy.sortBy) {
+            if(filterBy.sortBy === 'price') toys.sort((p1, p2) => p1.price - p2.price)
+            else if(filterBy.sortBy === 'createAt') toys.sort((c1, c2) => c1.createAt - c2.createAt)
+            else toys.sort((n1, n2) => n1.localeCompare(n2))
+        }
         return toys
     } catch (err) {
         throw err

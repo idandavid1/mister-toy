@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -9,7 +9,7 @@ import { utilService } from "../services/util.service"
 
 export function ToyDetails() {
     const [toy, setToy] = useState(null)
-    const [msg, setMsg] = useState({msg: ''})
+    const [msg, setMsg] = useState({txt: ''})
     const { toyId } = useParams()
     const user = useSelector((storeState) => storeState.userModule.user)
     const navigate = useNavigate()
@@ -28,15 +28,19 @@ export function ToyDetails() {
 
     function handleChange({ target }) {
         let { value } = target
-        setMsg((prevMsg) => ({ ...prevMsg, msg: value }))
+        setMsg((prevMsg) => ({ ...prevMsg, txt: value }))
     }
 
     function onSubmit(ev) {
         ev.preventDefault()
-        toyService.addMsg(msg.msg, toyId)
-            .catch((err) => {
-                console.log('err', err)
-            })
+        toyService.addMsg(msg.txt, toyId)
+        .then(() => {
+            loadToy()
+            msg.txt = ''
+        })
+        .catch((err) => {
+            console.log('err', err)
+        })
     }
     
     if(!toy) return <Loading />
@@ -53,13 +57,23 @@ export function ToyDetails() {
                 <form onSubmit={onSubmit}>
                     <input type="text"
                     name="txt"
-                    placeholder="Enter msg"
-                    value={msg.msg}
+                    placeholder="add review"
+                    value={msg.txt}
                     onChange={handleChange}
                 />
                 <button>Save</button>
                 </form>}
                 
+                <ul>
+                    {
+                    toy.msgs.map((msg, idx) => {
+                    return <li key={idx} className="toy-reviews">
+                        <div>{msg?.by?.fullname}</div>
+                        <div>{msg?.txt}</div>
+                    </li>
+                    }) }   
+                </ul>
+               
             </div>
     </section>
     )
