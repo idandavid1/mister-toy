@@ -19,6 +19,12 @@
             flex-direction: column;
             width: 100%;
         }
+
+        .delete {
+            background-color: $clr3;
+            float: right;
+            color: black;
+        }
     }
 
 
