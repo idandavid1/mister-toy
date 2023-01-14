@@ -14,6 +14,7 @@ async function getToyById(req, res) {
   try {
     const { toyId } = req.params
     const toy = await toyService.getById(toyId)
+    if(!toy.msgs) toy.msgs = []
     res.json(toy)
   } catch (err) {
     res.status(500).send({ err: 'Failed to get toy' })
