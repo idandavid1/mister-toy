@@ -11,6 +11,7 @@ import { HomePage } from './pages/home-page';
 import { AboutPage } from './pages/about-page';
 import { Dashboard } from './pages/dashboard';
 import { AppFooter } from './cmps/app-footer';
+import { UserMsg } from './cmps/user-msg';
 
 export function App() {
 
@@ -20,6 +21,7 @@ export function App() {
                 <section className="app">
                     <AppHeader />
                     <main className='layout'>
+                        <UserMsg />
                         <Routes>
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutPage />} path="/about" />

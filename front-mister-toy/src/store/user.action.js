@@ -2,38 +2,41 @@ import { userService } from "../services/user.service.js"
 import {store } from "./store.js"
 import { SET_USER } from "./user.reducer.js"
 
-export function setUser(user) {
-    userService.save(user).then(() => {
-        store.dispatch({ type: SET_USER, user })
-    })
-    .catch((err) => {
+export async function setUser(user) {
+    try {
+        const saveUser = await userService.save(user)
+        store.dispatch({ type: SET_USER, user: saveUser })
+    } catch (err) {
         console.log('err:', err)
         throw(err)
-    })
+    }
 }
 
-export function sighup(user) {
-    return userService.signup(user)
-        .then((user) => {
-            store.dispatch({ type: SET_USER, user })
-        })
-        .catch((err) => console.log('err:', err))
+export async function sighup(user) {
+    try {
+        const saveUser = await userService.signup(user)
+        store.dispatch({ type: SET_USER, user: saveUser })
+    } catch(err) {
+        console.log('err:', err)
+    }
 }
 
-export function login(user) {
-    return userService.login(user)
-    .then((user) => store.dispatch({ type: SET_USER, user }))
-    .catch((err) => console.log('err:', err))
+export async function login(user) {
+    try {
+        const saveUser = await userService.login(user)
+        store.dispatch({ type: SET_USER, user: saveUser })
+    } catch(err) {
+        console.log('err:', err)
+    }
 }
 
-export function onLogOut() {
-    userService.logout()
-    .then(()=> {
+export async function onLogOut() {
+    try {
+        await userService.logout()
         store.dispatch({ type: SET_USER, user: null })
-    })
-    .catch((err) => {
+    } catch(err) {
         console.log('err:', err)
         throw(err)
-    })
+    }
 }
 

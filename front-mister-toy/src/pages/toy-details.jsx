@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { Loading } from "../cmps/loading"
 import { toyService } from "../services/toy.service.js"
 import { utilService } from "../services/util.service"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 
 export function ToyDetails() {
@@ -18,12 +19,15 @@ export function ToyDetails() {
         loadToy()
     }, [])
 
-    function loadToy() {
-        toyService.getById(toyId).then(setToy)
-        .catch((err) => {
+    async function loadToy() {
+        try {
+            const toy = await toyService.getById(toyId)
+            console.log('toy:', toy)
+            setToy(toy)
+        } catch (err) {
             console.log('can not load toy', err)
             navigate('/toy')
-        })
+        }
     }
 
     function handleChange({ target }) {
@@ -31,16 +35,17 @@ export function ToyDetails() {
         setMsg((prevMsg) => ({ ...prevMsg, txt: value }))
     }
 
-    function onSubmit(ev) {
+    async function onSubmit(ev) {
         ev.preventDefault()
-        toyService.addMsg(msg.txt, toyId)
-        .then(() => {
+        try {
+            await toyService.addMsg(msg.txt, toyId)
             loadToy()
             msg.txt = ''
-        })
-        .catch((err) => {
+            showSuccessMsg('msg save')
+        } catch (err) {
+            showErrorMsg('cant save msg')
             console.log('err', err)
-        })
+        }
     }
     
     if(!toy) return <Loading />
@@ -63,7 +68,6 @@ export function ToyDetails() {
                 />
                 <button>Save</button>
                 </form>}
-                
                 <ul>
                     {
                     toy.msgs.map((msg, idx) => {

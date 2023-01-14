@@ -17,22 +17,26 @@ function get(userId) {
     return httpService.get(BASE_USER_URL + userId)
 }
 
-function signup(user) {
-    return httpService.post(BASE_AUTH_URL + 'signup', user)
-        .then((user) => {
-            const {fullname, username, isAdmin} = user
-            _saveLoggedInUser({fullname, username, isAdmin})
-            return user
-        })
+async function signup(user) {
+    try {
+        const saveUser = await httpService.post(BASE_AUTH_URL + 'signup', user)
+        const {fullname, username, isAdmin} = saveUser
+        _saveLoggedInUser({fullname, username, isAdmin})
+        return saveUser
+    } catch (err) {
+        throw err
+    }
 }
 
-function login(user) {
-    return httpService.post(BASE_AUTH_URL + 'login', user)
-        .then(user => {
-            const {fullname, username, isAdmin} = user
-            _saveLoggedInUser({fullname, username, isAdmin})
-            return user
-        })
+async function login(user) {
+    try {
+        const saveUser = await httpService.post(BASE_AUTH_URL + 'login', user)
+        const {fullname, username, isAdmin} = saveUser
+        _saveLoggedInUser({fullname, username, isAdmin})
+        return saveUser
+    } catch (err) {
+        throw err
+    }
 }
 
 function save(user) {

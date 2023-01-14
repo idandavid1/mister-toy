@@ -1,5 +1,5 @@
 const express = require('express')
-const { requireAuth, requireAdmin } = require('../../middlewares/requireAuth.middleware')
+const { requireAuth, requireAdmin, requireLogin } = require('../../middlewares/requireAuth.middleware')
 const { getToys, getToyById, addToy, updateToy, removeToy, queryLabels, addMsg } = require('./toy.controller')
 const router = express.Router()
 

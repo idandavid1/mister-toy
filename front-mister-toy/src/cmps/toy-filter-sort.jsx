@@ -1,4 +1,3 @@
-
 import { loadToys , setFilter } from "../store/toy.action.js"
 import { utilService } from "../services/util.service.js"
 import { useSelector } from "react-redux"
@@ -14,14 +13,17 @@ export function ToyFilter() {
     const [selected, setSelected] = useState([])
 
     useEffect(() => {
-        toyService.getLabels()
-        .then((labels) => {
-            setOptions(labels.map(label => ({label, value: label })))
-        })
-        .catch(err => {
-            console.log('Error:', err)
-        })
+        loadLabels()
     }, [])
+
+    async function loadLabels() {
+        try {
+          const labels = await toyService.getLabels()
+          setOptions(labels.map(label => ({label, value: label })))
+        } catch (err) {
+            console.log('Error:', err)
+        }
+    }
 
     function handleChange({ target }) {
         let { value, name: field } = target

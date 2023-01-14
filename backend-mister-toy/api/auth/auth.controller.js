@@ -8,7 +8,8 @@ async function login(req, res) {
         res.cookie('loginToken', loginToken)
         res.send(user)
     } catch (err) {
-        res.status(401).send({ err: 'Failed to Login' })
+        res.status(401)
+        res.send({ err: 'Failed to Login' })
     }
 }
 

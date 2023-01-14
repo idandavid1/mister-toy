@@ -4,7 +4,8 @@ import logo from '../assets/img/toy-logo.png';
 
 export function AppHeader() {
     const[toggle, setToggle] = useState(false)
-    const elHeader = useRef();
+    const elHeader = useRef()
+    
     function onToggle() {
         elHeader.current.classList.toggle('menu-open')
         setToggle(prev => !prev)

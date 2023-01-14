@@ -14,7 +14,6 @@ export const toyService = {
 }
 
 function query(filter) {
-    console.log('filter:', filter)
     const queryParams = `?name=${filter.name}&inStock=${filter.inStock}&labels=${filter.labels}&sortBy=${filter.sortBy}`
     return httpService.get(BASE_URL + queryParams)
 }
@@ -33,6 +32,7 @@ function save(toy) {
 }
 
 function addMsg(msg, toyId) {
+    console.log('msg:', msg)
     return httpService.post(BASE_URL + `${toyId}/${msg}`)
 }
 

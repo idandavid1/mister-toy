@@ -14,27 +14,32 @@ export function ToyEdit() {
     const { toyId } = useParams()
 
     useEffect(() => {
-        toyService.getLabels()
-        .then((labels) => {
-            setOptions(labels.map(label => ({label, value: label })))
-        })
-        .catch(err => {
-            console.log('Error:', err)
-        })
+        loadLabels()
         if(toyId) {
-            toyService.getById(toyId)
-            .then((toy) => {
-                setToyToEdit(toy)
-                showSuccessMsg('load toy')
-                setSelected(toy.labels.map(label => ({label, value: label })))
-            })
-            .catch((err) => {
-                console.log('err:', err)
-                showSuccessMsg('cant load toy')
-                navigate('/')
-            })
+            loadToy()
         }
     }, [])
+
+    async function loadToy() {
+        try {
+            const toy = await toyService.getById(toyId)
+            setToyToEdit(toy)
+            setSelected(toy.labels.map(label => ({label, value: label })))
+        } catch (err) {
+            console.log('err:', err)
+            showSuccessMsg('cant load toy')
+            navigate('/')
+        }
+    }
+
+    async function loadLabels() {
+        try {
+          const labels = await toyService.getLabels()
+          setOptions(labels.map(label => ({label, value: label })))
+        } catch (err) {
+            console.log('Error:', err)
+        }
+    }
 
     function handleChange({ target }) {
         let { value, type, name: field, checked } = target
@@ -43,19 +48,18 @@ export function ToyEdit() {
         setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
     }
 
-    function onSaveToy(ev) {
+    async function onSaveToy(ev) {
         ev.preventDefault()
         if(!toyToEdit._id) toyToEdit.createdAt = Date.now()
-        saveToy(toyToEdit)
-            .then(() => {
-                showSuccessMsg('toy saved!')
-                navigate('/toy')
-            })
-            .catch((err) => {
+        try {
+            await saveToy(toyToEdit)
+            showSuccessMsg('toy saved!')
+            navigate('/toy')
+        } catch (err) {
                 console.log('err', err)
                 showErrorMsg('cant save toy')
                 navigate('/toy')
-            })
+            }
     }
 
     function onMultiSelected(selected){

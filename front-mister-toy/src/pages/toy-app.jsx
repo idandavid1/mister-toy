@@ -8,6 +8,7 @@ import { ToyList } from "../cmps/toy-list"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 import { loadToys, removeToy } from "../store/toy.action"
 import { onLogOut } from "../store/user.action"
+import { IoIosAddCircle } from "react-icons/io";
 
 
 export function ToyApp() {
@@ -18,17 +19,16 @@ export function ToyApp() {
 
     useEffect(() => {
         loadToys(filter)
-    }, [])
+    }, [filter])
 
-    function onRemove(toyId) {
-        removeToy(toyId)
-        .then(() => {
+    async function onRemove(toyId) {
+        try {
+            await removeToy(toyId)
             showSuccessMsg('toy remove')
-        })
-        .catch((err) => {
+        } catch (err) {
             console.log('err:', err)
             showErrorMsg('cant remove toy')
-        })
+        }
     }
 
     if(!toys) return <Loading />
@@ -37,14 +37,16 @@ export function ToyApp() {
         {user && <div>
                 <h2>Hello {user.fullname}</h2>
                 <button onClick={onLogOut}>Logout</button>
+
             </div>}
         {!user && <div>
                 <button onClick={() => setIsLoginOpen(true)}>login</button>
                 {isLoginOpen && <LoginSignUp setIsLoginOpen={setIsLoginOpen}/>}
+
             </div>}
         </div>
+        {user?.isAdmin && <Link to={`/toy/edit/`}><IoIosAddCircle className="add-icon" /></Link>}
         <ToyFilter />
-        {user?.isAdmin && <Link to={`/toy/edit/`}><button>add toy</button></Link>}
         <ToyList onRemove={onRemove} toys={toys}/>
     </section>
 }
