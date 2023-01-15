@@ -6,17 +6,20 @@ import { Loading } from "../cmps/loading"
 import { toyService } from "../services/toy.service.js"
 import { utilService } from "../services/util.service"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
+import { reviewService } from "../services/review.service"
 
 
 export function ToyDetails() {
     const [toy, setToy] = useState(null)
-    const [msg, setMsg] = useState({txt: ''})
+    const [msg, setMsg] = useState(reviewService.getEmptyReview())
+    const [reviews, setReviews] = useState([])
     const { toyId } = useParams()
     const user = useSelector((storeState) => storeState.userModule.user)
     const navigate = useNavigate()
 
     useEffect(()=>{
         loadToy()
+        loadReviews()
     }, [])
 
     async function loadToy() {
@@ -30,6 +33,16 @@ export function ToyDetails() {
         }
     }
 
+    async function loadReviews() {
+        try {
+            const reviews = await toyService.getReviews(toyId)
+            setReviews(reviews)
+        } catch (err) {
+            console.log('can not load reviews', err)
+            navigate('/toy')
+        }
+    }
+
     function handleChange({ target }) {
         let { value } = target
         setMsg((prevMsg) => ({ ...prevMsg, txt: value }))
@@ -38,9 +51,10 @@ export function ToyDetails() {
     async function onSubmit(ev) {
         ev.preventDefault()
         try {
-            await toyService.addMsg(msg.txt, toyId)
+            await reviewService.add(msg, toyId)
             loadToy()
-            msg.txt = ''
+            loadReviews()
+            setMsg(reviewService.getEmptyReview())
             showSuccessMsg('msg save')
         } catch (err) {
             showErrorMsg('cant save msg')
@@ -70,10 +84,10 @@ export function ToyDetails() {
                 </form>}
                 <ul>
                     {
-                    toy.msgs.map((msg, idx) => {
+                    reviews.map((review, idx) => {
                     return <li key={idx} className="toy-reviews">
-                        <div>{msg?.by?.fullname}</div>
-                        <div>{msg?.txt}</div>
+                        <div>{review?.byUser?.fullname}</div>
+                        <div>{review?.txt}</div>
                     </li>
                     }) }   
                 </ul>

@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import logo from '../assets/img/toy-logo.png';
 
 export function AppHeader() {
     const[toggle, setToggle] = useState(false)
+    const user = useSelector((storeState) => storeState.userModule.user)
     const elHeader = useRef()
     
     function onToggle() {
@@ -26,6 +28,8 @@ export function AppHeader() {
                 <NavLink to="/toy">toys</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/dashboard">Dashboard</NavLink> 
+                <NavLink to="/reviewExplore">Reviews</NavLink> 
+                {user && <NavLink to="/userDetails">User-details</NavLink>} 
             </nav>
             <div className="btn-container">
                 {toggle && <button onClick={onToggle}>x</button>}

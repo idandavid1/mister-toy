@@ -40,20 +40,20 @@ async function addUser(req, res) {
     }
 }
 
-async function login(req, res) {
+async function getReviews(req, res) {
     try {
-        const user = await userService.login(req.body)
-        res.cookie("loginToken", user)
-        res.send("user logged in")
+      const { userId } = req.params
+      const reviews = await userService.getUserReviews(userId)
+      res.send(reviews)
     } catch (err) {
-        res.status(500).send({ err: 'Failed to login' })
+      res.status(500).send({ err: 'Failed to get reviews' })
     }
-}
+  }
 
 module.exports = {
     getUser,
     getUsers,
     updateUser,
     addUser,
-    login
+    getReviews
 }

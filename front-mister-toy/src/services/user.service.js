@@ -10,7 +10,8 @@ export const userService = {
     logout,
     getEmptyCredentials,
     getLoggedInUser,
-    save
+    save,
+    getReviews
 }
 
 function get(userId) {
@@ -42,6 +43,10 @@ async function login(user) {
 function save(user) {
     if (user._id) return httpService.put(BASE_USER_URL, user)
     return httpService.post(BASE_USER_URL, user)
+}
+
+function getReviews(userId) {
+    return httpService.get(BASE_USER_URL + 'reviews/' + userId)
 }
 
 function getEmptyCredentials(fullname = '', username = '', password = '') {

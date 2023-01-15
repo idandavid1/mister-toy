@@ -14,7 +14,6 @@ async function getToyById(req, res) {
   try {
     const { toyId } = req.params
     const toy = await toyService.getById(toyId)
-    if(!toy.msgs) toy.msgs = []
     res.json(toy)
   } catch (err) {
     res.status(500).send({ err: 'Failed to get toy' })
@@ -30,7 +29,6 @@ async function addToy(req, res) {
     res.status(500).send({ err: 'Failed to add toy' })
   }
 }
-
 
 async function updateToy(req, res) {
   try {
@@ -52,27 +50,24 @@ async function removeToy(req, res) {
 }
 
 async function queryLabels(req, res) {
-    try {
-        const labels = await toyService.queryLabels()
-        res.send(labels)
-      } catch (err) {
-        res.status(500).send({ err: 'Failed to get labels' })
-      }
+  try {
+      const labels = await toyService.queryLabels()
+      res.send(labels)
+    } catch (err) {
+      res.status(500).send({ err: 'Failed to get labels' })
+    }
 }
 
-async function addMsg(req, res) {
+async function getReviews(req, res) {
   try {
-    const toyId = req.params.toyId
-    const msg = {
-      txt: req.params.msg,
-      by: req.loggedinUser
-    }
-    const resultMgs = await toyService.addMsg(toyId, msg)
-    res.send(resultMgs)
+    const { toyId } = req.params
+    const reviews = await toyService.getToyReviews(toyId)
+    res.send(reviews)
   } catch (err) {
-    res.status(500).send({ err: 'Failed to add mgs' })
+    res.status(500).send({ err: 'Failed to get reviews' })
   }
 }
+
 
 module.exports = {
   getToys,
@@ -81,5 +76,5 @@ module.exports = {
   updateToy,
   removeToy,
   queryLabels,
-  addMsg
+  getReviews
 }

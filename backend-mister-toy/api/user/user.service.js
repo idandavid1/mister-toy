@@ -1,14 +1,6 @@
 const dbService = require('../../services/db.service')
 const ObjectId = require('mongodb').ObjectId
 
-module.exports = {
-    query,
-    getById,
-    update,
-    add,
-    getByUsername
-}
-
 async function query() {
     try {
         const collection = await dbService.getCollection('users')
@@ -68,4 +60,45 @@ async function getByUsername(username) {
     }
 }
 
+async function getUserReviews(userId) {
+    try {
+        const criteria = { userId: ObjectId(userId)  }
+        const collection = await dbService.getCollection('review')
+        let reviews = await collection.aggregate([
+            {
+                $match: criteria
+            },
+            {
+                $lookup:
+                {
+                    localField: 'toyId',
+                    from: 'toy',
+                    foreignField: '_id',
+                    as: 'toy'
+                }
+            },
+            {
+                $unwind: '$toy'
+            }
+        ]).toArray()
+        reviews = reviews.map(review => {
+            review.toy = { _id: review.toy._id, name: review.toy.name }
+            delete review.userId
+            delete review.toyId
+            return review
+        })
+        return reviews
+    } catch (err) {
+        throw err
+    }
+}
+
+module.exports = {
+    query,
+    getById,
+    update,
+    add,
+    getByUsername,
+    getUserReviews
+}
 

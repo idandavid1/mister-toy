@@ -2,8 +2,9 @@
     background-color: lightgray;
     padding: 1em;
     position: absolute;
-    top: 1em;
-    right: 1em;
+    border-radius: 0;
+    right: 0;
+    top: 0;
 
     &.success {
         background-color: lightgreen;

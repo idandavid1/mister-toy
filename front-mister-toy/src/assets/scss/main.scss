@@ -14,9 +14,14 @@
 @import './cmps/user-msg.scss';
 @import './cmps/loading.scss';
 @import './cmps/toy-list.scss';
-@import './cmps/toy-edit.scss';
-@import './cmps/toy-details.scss';
 @import './cmps/toy-filter.scss';
-@import './cmps/about-page.scss';
-@import './cmps/dashboard.scss';
 @import './cmps/toy-signup-login.scss';
+
+// Pages
+@import './pages/toy-edit.scss';
+@import './pages/toy-details.scss';
+@import './pages/about-page.scss';
+@import './pages/dashboard.scss';
+@import './pages/user-details.scss';
+@import './pages/review-explore.scss';
+

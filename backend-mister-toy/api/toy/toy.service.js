@@ -33,7 +33,7 @@ async function query(filterBy) {
 async function getById(toyId) {
     try {
         const collection = await dbService.getCollection('toy')
-        const toy = collection.findOne({ _id: ObjectId(toyId) })
+        let toy = collection.findOne({ _id: ObjectId(toyId) })
         return toy
     } catch (err) {
         throw err
@@ -85,26 +85,38 @@ async function queryLabels() {
     return Promise.resolve(labels)
 }
 
-async function addMsg(toyId, msg) {
+async function getToyReviews(toyId) {
     try {
-        msg.id = _makeId()
-        const collection = await dbService.getCollection('toy')
-        await collection.updateOne({ _id: ObjectId(toyId) }, { $push: { msgs: msg } })
-        return msg
+        const criteria = { toyId: ObjectId(toyId)  }
+        const collection = await dbService.getCollection('review')
+        // const toyReviews = collection.find({ _id: ObjectId(toyId) })
+        let reviews = await collection.aggregate([
+            {
+                $match: criteria
+            },
+            {
+                $lookup:
+                {
+                    localField: 'userId',
+                    from: 'users',
+                    foreignField: '_id',
+                    as: 'byUser'
+                }
+            },
+            {
+                $unwind: '$byUser'
+            }
+        ]).toArray()
+        reviews = reviews.map(review => {
+            review.byUser = { _id: review.byUser._id, fullname: review.byUser.fullname }
+            delete review.userId
+            delete review.toyId
+            return review
+        })
+        return reviews
     } catch (err) {
         throw err
     }
-}
-
-function _makeId(length = 6) {
-    var txt = ''
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-    for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-
-    return txt
 }
 
 module.exports = {
@@ -114,5 +126,5 @@ module.exports = {
     add,
     update,
     queryLabels,
-    addMsg
+    getToyReviews
 }

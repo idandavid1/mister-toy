@@ -12,6 +12,8 @@ import { AboutPage } from './pages/about-page';
 import { Dashboard } from './pages/dashboard';
 import { AppFooter } from './cmps/app-footer';
 import { UserMsg } from './cmps/user-msg';
+import { UserDetails } from './pages/user-details';
+import { ReviewExplore } from './pages/review-explore';
 
 export function App() {
 
@@ -26,6 +28,8 @@ export function App() {
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutPage />} path="/about" />
                             <Route element={<Dashboard />} path="/dashboard" />
+                            <Route element={<ReviewExplore />} path="/reviewExplore" />
+                            <Route element={<UserDetails />} path="/userDetails" />
                             <Route element={<ToyApp />} path="/toy" />
                             <Route element={<ToyDetails />} path="/toy/:toyId" />
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
