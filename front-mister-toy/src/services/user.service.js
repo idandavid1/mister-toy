@@ -50,7 +50,7 @@ function getReviews(userId) {
 }
 
 function getEmptyCredentials(fullname = '', username = '', password = '') {
-    return { fullname, username, password, isAdmin: false }
+    return { fullname, username, password, isAdmin: false, imgUrl: '' }
 }
 
 function logout() {

@@ -13,10 +13,10 @@ async function login({ username, password }) {
     return user
 }
 
-async function signup({ username, password, fullname, isAdmin }) {
+async function signup({ username, password, fullname, isAdmin, imgUrl }) {
     if (!username || !password || !fullname) return Promise.reject('fullname, username and password are required!')
     const hash = await bcrypt.hash(password, 10)
-    return userService.add({ username, password: hash, fullname, isAdmin })
+    return userService.add({ username, password: hash, fullname, isAdmin, imgUrl })
 }
 
 function getLoginToken(user) {

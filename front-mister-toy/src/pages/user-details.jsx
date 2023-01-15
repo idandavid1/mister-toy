@@ -28,6 +28,7 @@ export function UserDetails() {
         <section className="user-details">
             <div className="details-container">
                 <h3>{user.fullname}</h3>
+                <img src={user.imgUrl} alt="" />
                 <ul>
                     {
                     reviews.map((review, idx) => {

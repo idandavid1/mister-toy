@@ -1,0 +1,19 @@
+.toy-app {
+    .add-icon {
+        margin-top: 20px;
+        font-size: 40px;
+    }
+
+    .user-div {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+
+        .user-img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+    }
+    
+}

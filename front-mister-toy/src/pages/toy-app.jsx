@@ -35,7 +35,11 @@ export function ToyApp() {
     return <section className="toy-app">
         <div className='user'>
         {user && <div>
-                <h2>Hello {user.fullname}</h2>
+                <div className="user-div">
+                    <img className="user-img" src={user.imgUrl} />
+                    <h2>{user.fullname}</h2>
+                </div>
+                
                 <button onClick={onLogOut}>Logout</button>
 
             </div>}

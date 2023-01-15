@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState } from "react"
 import { userService } from "../services/user.service.js"
 
@@ -9,8 +10,25 @@ export function LoginSignUpForm({ onLogin, onSingUp, isSignUp }) {
         setCredentials(prevCreds => ({ ...prevCreds, [field]: value }))
     }
 
+    async function uploadImg(ev) {
+        const CLOUD_NAME = 'du63kkxhl'
+        const UPLOAD_PRESET = 'ml_default'
+        const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+        const FORM_DATA = new FormData();
+        FORM_DATA.append('file', ev.target.files[0])
+        FORM_DATA.append('upload_preset', UPLOAD_PRESET);
+        try {
+            const res = axios.post(UPLOAD_URL, FORM_DATA)
+            const url = await res
+            setCredentials(prevCreds => ({ ...prevCreds, imgUrl: url.data.url }))
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     function handleSubmit(ev) {
         ev.preventDefault()
+        console.log('credentials:', credentials)
         isSignUp ? onSingUp(credentials) : onLogin(credentials)
     }
 
@@ -38,7 +56,7 @@ export function LoginSignUpForm({ onLogin, onSingUp, isSignUp }) {
                 required
             />
             </div>
-            {isSignUp && <div>
+            {isSignUp && <div className="flex column">
                 <div>Fullname</div>
                 <input
                 type="text"
@@ -48,6 +66,12 @@ export function LoginSignUpForm({ onLogin, onSingUp, isSignUp }) {
                 onChange={handleChange}
                 required
             />
+            <input
+                type="file"
+                name="file"
+                onChange={uploadImg}
+                required
+                />
             </div>}
             <button className="login-btn" >{isSignUp ? 'SignUp' : 'Login'}</button>
         </form>
