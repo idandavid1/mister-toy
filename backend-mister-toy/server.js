@@ -18,6 +18,7 @@ app.use(express.json())
 // app.use(cors(corsOptions))
 
 if (process.env.NODE_ENV === 'production') {
+    console.log('production:', production)
     app.use(express.static(path.resolve(__dirname, 'public')))
 } else {
     const corsOptions = {
