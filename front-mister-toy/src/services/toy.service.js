@@ -13,7 +13,7 @@ export const toyService = {
     getReviews
 }
 
-function query(filter) {
+function query(filter = getEmptyFilter()) {
     const queryParams = `?name=${filter.name}&inStock=${filter.inStock}&labels=${filter.labels}&sortBy=${filter.sortBy}`
     return httpService.get(BASE_URL + queryParams)
 }
