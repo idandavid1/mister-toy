@@ -10,7 +10,8 @@ export const toyService = {
     getEmptyToy,
     getEmptyFilter,
     getLabels,
-    getReviews
+    getReviews,
+    addMsg
 }
 
 function query(filter = getEmptyFilter()) {
@@ -33,6 +34,10 @@ function save(toy) {
 
 function getReviews(toyId) {
     return httpService.get(BASE_URL + 'reviews/' + toyId)
+}
+
+function addMsg(toyId, msg) {
+    return httpService.put(BASE_URL + toyId + '/msgs', msg)
 }
 
 function getEmptyToy() {

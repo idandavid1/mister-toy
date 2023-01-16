@@ -18,9 +18,10 @@ export function LoginSignUpForm({ onLogin, onSingUp, isSignUp }) {
         FORM_DATA.append('file', ev.target.files[0])
         FORM_DATA.append('upload_preset', UPLOAD_PRESET);
         try {
-            const res = axios.post(UPLOAD_URL, FORM_DATA)
-            const url = await res
-            setCredentials(prevCreds => ({ ...prevCreds, imgUrl: url.data.url }))
+            const res = await axios.post(UPLOAD_URL, FORM_DATA)
+            const { url } = res.data
+            console.log('res.data:', url)
+            setCredentials(prevCreds => ({ ...prevCreds, imgUrl: url }))
         } catch (err) {
             console.error(err)
         }

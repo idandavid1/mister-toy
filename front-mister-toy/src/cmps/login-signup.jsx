@@ -16,7 +16,7 @@ export function LoginSignUp({ setIsLoginOpen }) {
         .finally(() => setIsLoginOpen(false))
     }
 
-    return <div className="login-todo">
+    return <div className="login-toy">
             <div className="btn-close-container"><button onClick={() => setIsLoginOpen(false)} className="close">x</button></div>
             <LoginSignUpForm onLogin={onLogin} onSingUp={onSingUp} isSignUp={isSignUp} />
             <a onClick={() => setIsSignUp(!isSignUp)}>

@@ -10,12 +10,11 @@ async function query(filterBy) {
         }
         if (filterBy.inStock !== 'All' && filterBy.inStock) {
             const inStock = filterBy.inStock === 'true' ? true : false
-            console.log('filterBy.inStock:', filterBy.inStock)
             criteria.inStock = inStock
         }
         if(filterBy.labels){
             const labels = filterBy.labels.split(', ')
-            criteria.labels = labels
+            criteria.labels = { $in: labels }
         }
         const collection = await dbService.getCollection('toy')
         const toys = await collection.find(criteria).toArray()
@@ -119,6 +118,27 @@ async function getToyReviews(toyId) {
     }
 }
 
+async function addMsgs(toyId, msg) {
+    try {
+        msg.id = _makeId()
+        const collection = await dbService.getCollection('toy')
+        await collection.updateOne({ _id: ObjectId(toyId) }, { $push: { msgs: msg } })
+        return msg
+    } catch (err) {
+        throw err
+    }
+}
+
+function _makeId(length = 5) {
+    var txt = ''
+    var possible =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (let i = 0; i < length; i++) {
+      txt += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return txt
+  }
+
 module.exports = {
     remove,
     query,
@@ -126,5 +146,6 @@ module.exports = {
     add,
     update,
     queryLabels,
-    getToyReviews
+    getToyReviews,
+    addMsgs
 }

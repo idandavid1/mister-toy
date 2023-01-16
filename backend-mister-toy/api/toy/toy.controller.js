@@ -68,6 +68,16 @@ async function getReviews(req, res) {
   }
 }
 
+async function addToyMsgs(req, res) {
+  try {
+    const { toyId } = req.params
+    const msg = await toyService.addMsgs(toyId, req.body)
+    return msg
+  } catch (err) {
+    res.status(500).send({ err: 'Failed to add msg' })
+  }
+}
+
 
 module.exports = {
   getToys,
@@ -76,5 +86,6 @@ module.exports = {
   updateToy,
   removeToy,
   queryLabels,
-  getReviews
+  getReviews,
+  addToyMsgs
 }

@@ -7,12 +7,15 @@ import { toyService } from "../services/toy.service.js"
 import { utilService } from "../services/util.service"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 import { reviewService } from "../services/review.service"
+import { BsFillChatDotsFill } from "react-icons/bs";
+import { ToyChat } from "../cmps/toy-chat"
 
 
 export function ToyDetails() {
     const [toy, setToy] = useState(null)
     const [msg, setMsg] = useState(reviewService.getEmptyReview())
     const [reviews, setReviews] = useState([])
+    const [isChatOpen, setIsChatOpen] = useState(false)
     const { toyId } = useParams()
     const user = useSelector((storeState) => storeState.userModule.user)
     const navigate = useNavigate()
@@ -82,6 +85,8 @@ export function ToyDetails() {
                 />
                 <button>Save</button>
                 </form>}
+                {!isChatOpen && user && <BsFillChatDotsFill onClick={() => setIsChatOpen(true)} />}
+                {isChatOpen && user && <ToyChat currToy={toy}/>}
                 <ul>
                     {
                     reviews.map((review, idx) => {
