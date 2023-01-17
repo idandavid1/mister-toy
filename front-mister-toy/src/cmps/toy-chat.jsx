@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { socketService, SOCKET_EMIT_ADD_TYPING, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EMIT_STOP_TYPING, SOCKET_EVENT_ADD_MSG, SOCKET_EVENT_ADD_TYPING, SOCKET_EVENT_STOP_TYPING } from "../services/socket.service";
-import { toyService } from "../services/toy.service";
 
 export function ToyChat({ toyId, history }) {
     const [msgs, setMsgs] = useState(history) 
