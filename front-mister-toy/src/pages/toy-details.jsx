@@ -86,7 +86,7 @@ export function ToyDetails() {
                 <button>Save</button>
                 </form>}
                 {!isChatOpen && user && <BsFillChatDotsFill onClick={() => setIsChatOpen(true)} />}
-                {isChatOpen && user && <ToyChat currToy={toy}/>}
+                {isChatOpen && user && <ToyChat toyId={toy._id} history={toy.msgs}/>}
                 <ul>
                     {
                     reviews.map((review, idx) => {

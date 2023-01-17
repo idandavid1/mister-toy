@@ -1,3 +1,5 @@
+const toyService = require('../api/toy/toy.service.js')
+
 var gIo = null
 
 function setupSocketAPI(http) {
@@ -17,6 +19,13 @@ function setupSocketAPI(http) {
         })
         socket.on('chat-send-msg', msg => {
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
+            toyService.addMsgs(socket.myTopic, msg)
+        })
+        socket.on('chat-typing', fullname => {
+            socket.broadcast.to(socket.myTopic).emit('chat-add-typing', fullname)
+        })
+        socket.on('chat-remove-typing-user', fullname => {
+            socket.broadcast.to(socket.myTopic).emit('chat-stop-typing', fullname)
         })
         socket.on('user-watch', userId => {
             socket.join('watching:' + userId)
