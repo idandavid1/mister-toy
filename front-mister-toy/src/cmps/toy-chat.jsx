@@ -59,7 +59,7 @@ export function ToyChat({ toyId, history }) {
         socketService.emit(SOCKET_EMIT_STOP_TYPING, user.fullname)
         clearTimeout(timeout.current)
         timeout.current = null
-        // addMsg(msg)
+        addMsg(msg)
         setMsg(createEmptyMsg())
     }
 
