@@ -12,6 +12,12 @@
     gap: 20px;
     z-index: 1000;
 
+    span {
+        display: flex;
+        flex-direction: row-reverse;
+        cursor: pointer;
+    }
+
     ul {
         height: 300px;
         overflow-y: auto;

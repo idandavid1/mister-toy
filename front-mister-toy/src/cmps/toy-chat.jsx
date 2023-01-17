@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { socketService, SOCKET_EMIT_ADD_TYPING, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EMIT_STOP_TYPING, SOCKET_EVENT_ADD_MSG, SOCKET_EVENT_ADD_TYPING, SOCKET_EVENT_STOP_TYPING } from "../services/socket.service";
 
-export function ToyChat({ toyId, history }) {
+export function ToyChat({ toyId, history, setIsChatOpen }) {
     const [msgs, setMsgs] = useState(history) 
     const [typingUsers, setTypingUsers] = useState([])
     const user = useSelector((storeState) => storeState.userModule.user)
@@ -65,6 +65,7 @@ export function ToyChat({ toyId, history }) {
 
     return (
         <section className="toy-chat">
+            <span onClick={() => setIsChatOpen(false)}>X</span>
             <ul className="clean-list">
             {
                 msgs.map((msg, idx) => {
